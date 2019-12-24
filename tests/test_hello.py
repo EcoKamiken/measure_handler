@@ -1,4 +1,4 @@
-from mfa_parser.hello import hello
+from mfac.hello import hello
 
 
 def test_hello():
