@@ -17,9 +17,15 @@ class Client:
         self.device_id = device_id
         self.url: str = self.URL.format(device_id=self.device_id)
         self.headers: dict = {"Authorization": "Basic " + self.BASIC_AUTH}
-        self.get_json_data()
+        self.fetch_json_data()
 
-    def get_json_data(self):
+    def fetch_json_data(self):
         req: object = urllib.request.Request(self.url, headers=self.headers)
         with urllib.request.urlopen(req) as res:
             self.json_data = json.loads(res.read())
+
+    def get_time_and_data(self):
+        tpl = (
+            self.json_data["data"][0]["time"],
+            self.json_data["data"][0]["data"])
+        return tpl

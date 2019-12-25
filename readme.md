@@ -1,3 +1,3 @@
-# mfac
+# mfacs
 
-measure for arduino client
+measure for arduino client and server
