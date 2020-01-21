@@ -40,7 +40,7 @@ def parse_payload_data(payload_data: dict):
         tuple: payload_dataを解析した結果
 
     Examples:
-        >>> parse_payload_data({"seq":"0","device":"000000","time":"1577836800","data":"ff5fff3f"})
+        >>> parse_payload_data({"seq":"0", "device":"000000", "time":"1577836800", "data":"ff5fff3f"})
         ('2020-01-01 09:00:00', 0, 0, 4095, 5, 40.95, 3)
     """
 
