@@ -5,3 +5,9 @@
 ```shell
 poetry install
 ```
+
+## 実行
+
+```shell
+poetry run python -m measureh
+```
