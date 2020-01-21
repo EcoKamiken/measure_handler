@@ -1,5 +1,6 @@
 import measureh.client
-from flask import Flask, jsonify, request
+import measureh.parser
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -11,13 +12,23 @@ def index():
 
 @app.route('/api/v1/receive', methods=['POST'])
 def receiver():
-    j = request.get_json()
-    print(j)
-    return jsonify(j)
+    """ Sigfoxからのコールバックデータを待ち受ける
+
+    コールバックデータを受信したら、データを解析してデータベースに登録処理を行う。
+    """
+    json_data = request.get_json()
+    data = measureh.parser.parse_payload_data(json_data)
+    print(data)
+    return json_data
 
 
 @app.route('/api/v1/<sigfox_device_id>/messages')
 def show_messages(sigfox_device_id):
+    """ 引数で指定したデバイスのsigfoxメッセージ一覧を表示
+
+    Args:
+        sigfox_device_id (str): SigfoxデバイスのID
+    """
     client = measureh.client.Client()
     return client.get_messages(sigfox_device_id)
 
