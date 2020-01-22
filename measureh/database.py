@@ -1,9 +1,26 @@
+"""データベースモジュール
+
+* データベースとの通信
+
+Todo:
+    * None
+"""
+
 import os
 import pymysql.cursors
 
 
 class Database():
-    """データベースとの接続を管理する
+    """データベース接続
+
+    Attributes:
+        HOST: データベースホスト名
+        USER: データベースユーザ名
+        PASS: データベースパスワード
+        PORT: データベースポート番号
+        DB: データベース名
+        CHARSET: 文字コード
+        CURSOR_CLASS: カーソルの型
     """
     HOST = os.environ["MEASUREH_DB_HOST"]
     USER = os.environ["MEASUREH_DB_USER"]

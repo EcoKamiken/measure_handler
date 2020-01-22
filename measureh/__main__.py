@@ -1,6 +1,18 @@
+"""Mainモジュール
+
+* Sigfox cloud コールバックの待ち受け
+* データの解析
+* データベースへの登録処理
+
+Todo:
+    * None
+"""
+import doctest
+
+from flask import Flask, request
+
 import measureh.client
 import measureh.parser
-from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -35,3 +47,4 @@ def show_messages(sigfox_device_id):
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
+    doctest.testmod()

@@ -1,3 +1,11 @@
+"""Parserモジュール
+
+* Sigfox cloudから受信したペイロードの解析
+
+Todo:
+    * None
+"""
+
 import datetime
 
 
