@@ -13,6 +13,7 @@ from flask import Flask, request
 
 import measureh.client
 import measureh.parser
+import measureh.database
 
 app = Flask(__name__)
 
@@ -28,9 +29,10 @@ def receiver():
 
     コールバックデータを受信したら、データを解析してデータベースに登録処理を行う。
     """
+    db = measureh.database.Database()
     json_data = request.get_json()
     data = measureh.parser.parse_payload_data(json_data)
-    print(data)
+    db.sigfox_tuple_insert_to_db(data)
     return json_data
 
 

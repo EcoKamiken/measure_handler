@@ -5,8 +5,9 @@
 Todo:
     * None
 """
-
+import doctest
 import datetime
+import math
 
 
 def parse_payload_data(payload_data: dict):
@@ -23,7 +24,7 @@ def parse_payload_data(payload_data: dict):
     Examples:
         >>> parse_payload_data({"seq":"0", "device":"000000",\
                                 "time":"1577836800", "data":"ff5fff3f"})
-        ('2020-01-01 09:00:00', 0, 0, 4095, 5, 40.95, 3)
+        ('2020-01-01 09:00:00', 0, 0, 4095, 5, 40.95, 2047.5, 707.5, 3)
     """
 
     date_time = datetime.datetime.fromtimestamp(int(payload_data["time"]))
@@ -33,7 +34,9 @@ def parse_payload_data(payload_data: dict):
 
     site_id = int(data[3] + data[0] + data[1], 16)
     format_version = int(data[2], 16)
-    voltage = int(data[7] + data[4] + data[5], 16) / 100  # [V]
+    voltage = round(int(data[7] + data[4] + data[5], 16) / 100, 2)  # [V]
+    ampere = round(voltage / 5 * 250, 2)
+    wattage = round(math.sqrt(3) * 210 * ampere * 0.95 / 1000, 2)
     device = int(data[6], 16)
 
     return (date_time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -42,4 +45,10 @@ def parse_payload_data(payload_data: dict):
             site_id,
             format_version,
             voltage,
+            ampere,
+            wattage,
             device)
+
+
+if __name__ == '__main__':
+    doctest.testmod()

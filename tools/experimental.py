@@ -35,4 +35,3 @@ if __name__ == '__main__':
         "data": "ff5fff3f"
     }
     post_json(obj)
-    doctest.testmod()
