@@ -31,8 +31,8 @@ def receiver():
     """
     db = measureh.database.Database()
     json_data = request.get_json()
-    data = measureh.parser.parse_payload_data(json_data)
-    db.sigfox_tuple_insert_to_db(data)
+    parsed_data = measureh.parser.parse_payload_data(json_data)
+    db.parsed_data_insert_to_db(parsed_data)
     return json_data
 
 

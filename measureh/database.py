@@ -37,25 +37,30 @@ class Database():
                                           cursorclass=self.CURSOR_CLASS)
 
     def query(self, sql):
+        """クエリ
+        """
         with self.connection.cursor() as cursor:
             cursor.execute(sql)
             return cursor.fetchall()
 
-    def sigfox_tuple_insert_to_db(self, parsed_data):
+    def parsed_data_insert_to_db(self, parsed_data):
         """ 解析済みのデータ(タプル)を受け取ってDBに登録する
         """
         with self.connection.cursor() as cursor:
-            sql = "INSERT INTO sensors (id, device_id, temperature, humidity, wattage, created_at) VALUES (%s, %s, %s, %s, %s, %s)"
-            req = cursor.execute(
-                sql, (parsed_data[3], parsed_data[8], 0, 0,
-                      parsed_data[7], parsed_data[0]))
-            print(req)
-            self.connection.commit()
+            sql = """
+            INSERT INTO
+                sensors
+                    (id, device_id, temperature, humidity, wattage, created_at)
+                VALUES
+                    (%s, %s, %s, %s, %s, %s)
+            """
+            try:
+                cursor.execute(sql, (parsed_data[3], parsed_data[8], 0, 0,
+                                     parsed_data[7], parsed_data[0]))
+                self.connection.commit()
+            except Exception as e:
+                self.connection.rollback()
+                raise e
 
     def __del__(self):
         self.connection.close()
-
-
-if __name__ == '__main__':
-    d = Database()
-    print(d.query("SELECT * FROM sites"))

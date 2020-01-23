@@ -1,4 +1,6 @@
-import doctest
+""" 実験用コード
+"""
+
 import urllib.request
 import urllib.error
 import json
