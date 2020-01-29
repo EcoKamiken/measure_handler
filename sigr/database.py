@@ -22,18 +22,21 @@ class Database():
         CHARSET (str): 文字コード
         CURSOR_CLASS (str): カーソルの型
     """
-    HOST = os.environ["MEASUREH_DB_HOST"]
-    USER = os.environ["MEASUREH_DB_USER"]
-    PASS = os.environ["MEASUREH_DB_PASS"]
-    PORT = int(os.environ["MEASUREH_DB_PORT"])
-    DB = os.environ["MEASUREH_DB_NAME"]
+    HOST = os.environ["SIGR_DB_HOST"]
+    USER = os.environ["SIGR_DB_USER"]
+    PASS = os.environ["SIGR_DB_PASS"]
+    PORT = int(os.environ["SIGR_DB_PORT"])
+    DB = os.environ["SIGR_DB_NAME"]
     CHARSET = "utf8mb4"
     CURSOR_CLASS = pymysql.cursors.DictCursor
 
     def __init__(self):
-        self.connection = pymysql.connect(host=self.HOST, user=self.USER,
-                                          password=self.PASS, database=self.DB,
-                                          port=self.PORT, charset=self.CHARSET,
+        self.connection = pymysql.connect(host=self.HOST,
+                                          user=self.USER,
+                                          password=self.PASS,
+                                          database=self.DB,
+                                          port=self.PORT,
+                                          charset=self.CHARSET,
                                           cursorclass=self.CURSOR_CLASS)
 
     def query(self, sql):
@@ -43,8 +46,8 @@ class Database():
             cursor.execute(sql)
             return cursor.fetchall()
 
-    def parsed_data_insert_to_db(self, parsed_data):
-        """ 解析済みのデータ(タプル)を受け取ってDBに登録する
+    def insert_parsed_data_in_db(self, parsed_data):
+        """ 受け取ったデータをデータベースに登録する
         """
         with self.connection.cursor() as cursor:
             sql = """

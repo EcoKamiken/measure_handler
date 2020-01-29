@@ -7,7 +7,7 @@
 Todo:
     * None
 """
-from flask import Flask, request
+from flask import Flask, request, make_response
 
 import sigr.client
 import sigr.parser
@@ -22,16 +22,24 @@ def receiver():
 
     コールバックデータを受信したら、データを解析してデータベースに登録処理を行う。
     """
-    db = sigr.Database()
     json_data = request.get_json()
     parsed_data = sigr.parse_payload_data(json_data)
-    db.parsed_data_insert_to_db(parsed_data)
-    return json_data
+
+    print(json_data)
+    print(parsed_data)
+
+    # Insert DB
+    db = sigr.Database()
+    db.insert_parsed_data_in_db(parsed_data)
+
+    response = make_response('Response Object')
+    response.headers['X-datatype'] = type(response)
+    return response
 
 
 @app.route('/api/v1/<sigfox_device_id>/messages')
 def show_messages(sigfox_device_id):
-    """ 引数で指定したデバイスのsigfoxメッセージ一覧を表示
+    """指定されたデバイスのSigfoxメッセージ一覧を表示
 
     Args:
         sigfox_device_id (str): SigfoxデバイスのID

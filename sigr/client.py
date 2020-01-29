@@ -21,7 +21,7 @@ class Client:
         SIGFOX_PW (str): Sigfox APIのPW
         BASIC_AUTH (str): BASIC認証用の文字列
     """
-    URL = 'https://api.sigfox.com/v2/'
+    URL: str = 'https://api.sigfox.com/v2/'
     SIGFOX_ID: str = os.environ['SIGFOX_ID']
     SIGFOX_PW: str = os.environ['SIGFOX_PW']
     BASIC_AUTH: str = b64encode("{}:{}".format(
