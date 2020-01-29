@@ -18,11 +18,6 @@ import measureh.database
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return "index"
-
-
 @app.route('/api/v1/receive', methods=['POST'])
 def receiver():
     """ Sigfoxからのコールバックデータを待ち受ける
