@@ -58,8 +58,12 @@ class Database():
                     (%s, %s, %s, %s, %s, %s)
             """
             try:
-                cursor.execute(sql, (parsed_data[3], parsed_data[8], 0, 0,
-                                     parsed_data[7], parsed_data[0]))
+                cursor.execute(sql, (parsed_data[3],   # site_data
+                                     parsed_data[8],   # device_id
+                                     0,                # temperature
+                                     0,                # humidity
+                                     parsed_data[7],   # wattage
+                                     parsed_data[0]))  # created_at
                 self.connection.commit()
             except Exception as e:
                 self.connection.rollback()
