@@ -23,15 +23,15 @@ def parse_payload_data(payload_data: dict):
 
     Examples:
         >>> parse_payload_data({"seq":"0",\
-                                "device":"000000",\
+                                "device":"ABCDEF",\
                                 "time":"1577836800",\
                                 "data":"ff5fff3f"})
-        ('2020-01-01 09:00:00', 0, 0, 4095, 5, 40.95, 2047.5, 707.5, 3)
+        ('2020-01-01 09:00:00', 0, 'ABCDEF', 4095, 5, 40.95, 2047.5, 707.5, 3)
     """
 
     date_time = datetime.datetime.fromtimestamp(int(payload_data["time"]))
     sequence_number = int(payload_data["seq"])
-    sigfox_device_id = int(payload_data["device"])
+    sigfox_device_id = payload_data["device"]
     data = payload_data["data"]
 
     site_id = int(data[3] + data[0] + data[1], 16)
