@@ -1,6 +1,7 @@
-# measure_handler
+# sigr
 
-Sigfox cloudとデータベースの間を接続するミドルウェア
+Sigfox cloudからCallbackで送信されたデータを受信および解析し、
+データベースに登録するサーバアプリケーション
 
 ## 依存関係のインストール
 
@@ -9,8 +10,6 @@ poetry install
 ```
 
 ### 環境変数
-
-以下の環境変数をすべて設定しないと正常に動作しません。
 
 Sigfox関係
 
@@ -32,5 +31,5 @@ $MEASUREH_DB_NAME="DBの名前"
 ## 実行
 
 ```shell
-poetry run python -m measureh
+poetry run python -m sigr
 ```
